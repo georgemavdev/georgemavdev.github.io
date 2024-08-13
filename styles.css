@@ -1,0 +1,50 @@
+body {
+    background-color: black;
+    color: #00FF00;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    padding: 20px;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#terminal {
+    width: 100%;
+    max-width: 800px;
+}
+
+#output {
+    margin-bottom: 10px;
+}
+
+#prompt {
+    color: #00FF00;
+}
+
+.input-area {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#inputLine {
+    display: inline-block;
+    width: calc(100% - 30px);
+}
+
+.cursor {
+    display: inline-block;
+    background-color: #00FF00;
+    width: 10px;
+    height: 20px;
+    animation: blink 1s step-start infinite;
+    vertical-align: bottom;
+}
+
+@keyframes blink {
+    50% { background-color: transparent; }
+}
