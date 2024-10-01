@@ -52,8 +52,8 @@ function processCommand(command) {
             displayMessage('../');
             break;
         case 'matrix':
-                displayMessage('Follow the white rabbit');
-                break;
+            displayMessage('Follow the white rabbit');
+            break;
         case 'exit':
             window.location.href = 'https://www.google.com';  // Redirect to Google
             break;
