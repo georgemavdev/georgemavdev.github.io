@@ -48,6 +48,9 @@ function processCommand(command) {
         case 'helo':
             displayMessage('Did you mean "help"? Type "help" for assistance.');
             break;
+        case 'dir' || 'ls':
+            displayMessage('../');
+            break;
         case 'exit':
             window.location.href = 'https://www.google.com';  // Redirect to Google
             break;
