@@ -45,11 +45,17 @@ function processCommand(command) {
                 document.body.style.backgroundColor = 'black';
             }, 2000);
             break;
+        case 'helo':
+            displayMessage('Did you mean "help"? Type "help" for assistance.');
+            break;
+        case 'dir':
+            displayMessage('../');
+            break;
+        case 'ls':
+            displayMessage('../');
+            break;
         case 'matrix':
             displayMessage('Follow the white rabbit');
-            break;
-        case 'neo':
-            startMatrixEffect();
             break;
         case 'exit':
             window.location.href = 'https://www.google.com';  // Redirect to Google
@@ -59,39 +65,9 @@ function processCommand(command) {
     }
 }
 
+
 function displayMessage(message) {
     const messageElement = document.createElement('div');
     messageElement.textContent = message;
     terminalOutput.appendChild(messageElement);
-}
-
-function startMatrixEffect() {
-    const matrixOutput = document.createElement('canvas');
-    matrixOutput.width = window.innerWidth;
-    matrixOutput.height = window.innerHeight;
-    document.body.appendChild(matrixOutput);
-    const context = matrixOutput.getContext('2d');
-
-    const fontSize = 16;
-    const columns = Math.floor(matrixOutput.width / fontSize);
-    const drops = Array(columns).fill(0);
-
-    function drawMatrix() {
-        context.fillStyle = 'rgba(0, 0, 0, 0.05)';
-        context.fillRect(0, 0, matrixOutput.width, matrixOutput.height);
-        context.fillStyle = '#0F0';
-        context.font = `${fontSize}px monospace`;
-
-        for (let i = 0; i < drops.length; i++) {
-            const text = String.fromCharCode(Math.floor(33 + Math.random() * 94));
-            context.fillText(text, i * fontSize, drops[i] * fontSize);
-
-            if (drops[i] * fontSize > matrixOutput.height && Math.random() > 0.95) {
-                drops[i] = 0;
-            }
-            drops[i]++;
-        }
-    }
-
-    setInterval(drawMatrix, 50);
 }
