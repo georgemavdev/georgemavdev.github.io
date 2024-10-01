@@ -45,62 +45,11 @@ function processCommand(command) {
                 document.body.style.backgroundColor = 'black';
             }, 2000);
             break;
-        case 'helo':
-            displayMessage('Did you mean "help"? Type "help" for assistance.');
-            break;
-        case 'dir':
-            displayMessage('../');
-            break;
-        case 'ls':
-            displayMessage('../');
-            break;
         case 'matrix':
             displayMessage('Follow the white rabbit');
             break;
         case 'neo':
-            const readline = require('readline');
-
-// Get terminal size
-const rows = process.stdout.rows;
-const columns = process.stdout.columns;
-
-// Create an object to track each column's position
-const positions = {};
-
-// Function to generate random Unicode character
-const getRandomUnicode = () => {
-  const unicode = Math.floor(Math.random() * 500);
-  return String.fromCodePoint(unicode);
-};
-
-// Function to move cursor and print colored output
-const printChar = () => {
-  // Random column for the character
-  const column = Math.floor(Math.random() * columns);
-  
-  // Initialize the position if it doesn't exist
-  if (!positions[column]) {
-    positions[column] = 0;
-  }
-
-  // Clear the line and move the cursor
-  readline.cursorTo(process.stdout, column, positions[column]);
-  process.stdout.write(`\x1b[2;32m${getRandomUnicode()}`);
-
-  // Update position and clear if reached the bottom
-  positions[column]++;
-  if (positions[column] >= rows) {
-    positions[column] = 0;
-  }
-
-  // Move the cursor back and print the character in white
-  readline.cursorTo(process.stdout, column, positions[column]);
-  process.stdout.write(`\x1b[1;37m${getRandomUnicode()}`);
-};
-
-// Set interval to continuously print
-setInterval(printChar, 50); // 50 milliseconds interval
-
+            startMatrixEffect();
             break;
         case 'exit':
             window.location.href = 'https://www.google.com';  // Redirect to Google
@@ -110,9 +59,39 @@ setInterval(printChar, 50); // 50 milliseconds interval
     }
 }
 
-
 function displayMessage(message) {
     const messageElement = document.createElement('div');
     messageElement.textContent = message;
     terminalOutput.appendChild(messageElement);
+}
+
+function startMatrixEffect() {
+    const matrixOutput = document.createElement('canvas');
+    matrixOutput.width = window.innerWidth;
+    matrixOutput.height = window.innerHeight;
+    document.body.appendChild(matrixOutput);
+    const context = matrixOutput.getContext('2d');
+
+    const fontSize = 16;
+    const columns = Math.floor(matrixOutput.width / fontSize);
+    const drops = Array(columns).fill(0);
+
+    function drawMatrix() {
+        context.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        context.fillRect(0, 0, matrixOutput.width, matrixOutput.height);
+        context.fillStyle = '#0F0';
+        context.font = `${fontSize}px monospace`;
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = String.fromCharCode(Math.floor(33 + Math.random() * 94));
+            context.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > matrixOutput.height && Math.random() > 0.95) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+    }
+
+    setInterval(drawMatrix, 50);
 }
