@@ -48,6 +48,12 @@ function processCommand(command) {
         case 'matrix':
             displayMessage('Follow the white rabbit');
             break;
+        case 'dir':
+            displayMessage('../');
+            break;
+        case 'ls':
+            displayMessage('../');
+            break;
         case 'neo':
             startMatrixEffect();
             break;
