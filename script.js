@@ -48,7 +48,7 @@ function processCommand(command) {
         case 'helo':
             displayMessage('Did you mean "help"? Type "help" for assistance.');
             break;
-        case 'dir' && 'ls':
+        case 'dir':
             displayMessage('../');
             break;
         case 'matrix':
